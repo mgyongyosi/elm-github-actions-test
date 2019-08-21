@@ -24,10 +24,13 @@ jobs:
 
   deploy:
     name: "Deploy to Now"
+
     needs: "build"
+    runs-on: ubuntu-latest
+
     steps:
     - name: GitHub Action for Zeit
       uses: actions/zeit-now@1.0.0
-      secrets:
-        - ZEIT_TOKEN
+      env:
+        ZEIT_TOKEN: ${{ secrets.ZEIT_TOKEN }}
 
