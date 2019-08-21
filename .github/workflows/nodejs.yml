@@ -21,4 +21,11 @@ jobs:
       run: |
         npm install
         npm run build --if-present
-        
+
+  deploy:
+    - resolves: "build"
+    - name: GitHub Action for Zeit
+      uses: actions/zeit-now@1.0.0
+      secrets:
+        - ZEIT_TOKEN
+
