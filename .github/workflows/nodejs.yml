@@ -23,7 +23,8 @@ jobs:
         npm run build --if-present
 
   deploy:
-    - resolves: "build"
+    resolves: "build"
+    steps:
     - name: GitHub Action for Zeit
       uses: actions/zeit-now@1.0.0
       secrets:
