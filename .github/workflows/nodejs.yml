@@ -1,4 +1,4 @@
-name: Build and Deploy
+name: Node CI
 
 on: [push]
 
@@ -13,18 +13,24 @@ jobs:
 
     steps:
     - uses: actions/checkout@v1
-
     - name: Use Node.js ${{ matrix.node-version }}
       uses: actions/setup-node@v1
       with:
         node-version: ${{ matrix.node-version }}
-
     - name: npm install, build, and test
       run: |
         npm install
         npm run build --if-present
 
+  deploy:
+    name: "Deploy to Now"
+
+    needs: "build"
+    runs-on: ubuntu-latest
+
+    steps:
     - name: GitHub Action for Zeit
       uses: actions/zeit-now@1.0.0
       env:
         ZEIT_TOKEN: ${{ secrets.ZEIT_TOKEN }}
+
